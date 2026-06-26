@@ -1,41 +1,24 @@
 import { useState, useEffect, type RefObject } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, CheckCircle } from 'lucide-react'
 import { useParallaxY } from '../lib/hooks'
+import WaitlistForm, { type WaitlistData } from './WaitlistForm'
 
 const cycleWords = ['money', 'time', 'clients', 'margins']
-
-const CONFETTI_COLORS = [
-  '#fcfdff', '#a1a4a5', '#3b9eff', '#11ff99',
-  '#ff801f', '#ffc53d', '#ff2047', '#888e90',
-]
 
 interface HeroProps {
   formRef: RefObject<HTMLDivElement | null>
   waitlistCount: number
-  onSignup: (email: string) => void
+  onSignup: (data: WaitlistData) => void
 }
 
 export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
   const [wordIndex, setWordIndex] = useState(0)
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [confetti, setConfetti] = useState(false)
   const blobY = useParallaxY([0, -80])
 
   useEffect(() => {
     const id = setInterval(() => setWordIndex(i => (i + 1) % cycleWords.length), 2400)
     return () => clearInterval(id)
   }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email.trim()) return
-    onSignup(email)
-    setSubmitted(true)
-    setConfetti(true)
-    setTimeout(() => setConfetti(false), 1200)
-  }
 
   const headWords = 'Stop losing'.split(' ')
 
@@ -133,7 +116,7 @@ export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
           priced change orders — so every hour of work gets paid.
         </motion.p>
 
-        {/* Email form */}
+        {/* Waitlist form */}
         <motion.div
           ref={formRef}
           initial={{ opacity: 0, y: 20 }}
@@ -141,78 +124,7 @@ export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-md mx-auto mb-10"
         >
-          <AnimatePresence mode="wait">
-            {!submitted ? (
-              <motion.form
-                key="form"
-                onSubmit={handleSubmit}
-                className="flex flex-col sm:flex-row gap-2"
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.2 }}
-              >
-                {/* Input: Inter for UI precision */}
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  required
-                  className="flex-1 px-4 text-[#fcfdff] placeholder-[#464a4d] text-sm font-ui focus:outline-none transition-all duration-200 rounded-lg"
-                  style={{
-                    background: '#0a0a0c',
-                    border: '1px solid rgba(255,255,255,0.14)',
-                    height: '40px',
-                  }}
-                  onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.55)' }}
-                  onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)' }}
-                />
-                <div className="relative flex-shrink-0">
-                  {confetti && (
-                    <div className="absolute inset-0 pointer-events-none overflow-visible" aria-hidden>
-                      {Array.from({ length: 18 }).map((_, i) => {
-                        const angle = (360 / 18) * i
-                        const dist = 50 + Math.random() * 50
-                        const tx = Math.cos((angle * Math.PI) / 180) * dist
-                        const ty = Math.sin((angle * Math.PI) / 180) * dist - 40
-                        return (
-                          <div
-                            key={i}
-                            className="absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-sm animate-confetti"
-                            style={{
-                              background: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-                              transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px))`,
-                            }}
-                          />
-                        )
-                      })}
-                    </div>
-                  )}
-                  <button type="submit" className="btn-primary h-[40px] font-ui">
-                    Join Waitlist
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </motion.form>
-            ) : (
-              <motion.div
-                key="success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="surface-card px-6 py-5 text-center"
-                style={{ borderColor: 'rgba(17,255,153,0.3)' }}
-              >
-                <CheckCircle className="w-7 h-7 text-[#11ff99] mx-auto mb-2" />
-                {/* Success state: Inter for precision */}
-                <p className="font-ui font-medium text-[#fcfdff] mb-1">You're on the list.</p>
-                <p className="font-marketing text-sm text-[#a1a4a5]">We'll reach out when your spot opens.</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <p className="text-xs text-[#464a4d] mt-3 text-center font-ui">
-            No credit card · No spam · Unsubscribe anytime
-          </p>
+          <WaitlistForm onSignup={onSignup} />
         </motion.div>
 
         {/* Stats row: JetBrains Mono for numbers, Inter for labels */}

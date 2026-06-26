@@ -11,12 +11,13 @@ import Testimonials from './components/Testimonials'
 import FinalCTA from './components/FinalCTA'
 import SectionDivider from './components/SectionDivider'
 import Footer from './components/Footer'
+import type { WaitlistData } from './components/WaitlistForm'
 
 export default function App() {
   const formRef = useRef<HTMLDivElement | null>(null)
   const [waitlistCount, setWaitlistCount] = useState(214)
 
-  const handleSignup = (_email: string) => {
+  const handleSignup = (_data: WaitlistData) => {
     setWaitlistCount(c => c + 1)
   }
 
