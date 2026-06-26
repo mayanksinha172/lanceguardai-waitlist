@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ScrollProgressBar from './components/ScrollProgressBar'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -12,13 +12,28 @@ import FinalCTA from './components/FinalCTA'
 import SectionDivider from './components/SectionDivider'
 import Footer from './components/Footer'
 import type { WaitlistData } from './components/WaitlistForm'
+import { joinWaitlist, getWaitlistCount } from './api'
 
 export default function App() {
   const formRef = useRef<HTMLDivElement | null>(null)
   const [waitlistCount, setWaitlistCount] = useState(214)
 
-  const handleSignup = (_data: WaitlistData) => {
-    setWaitlistCount(c => c + 1)
+  useEffect(() => {
+    getWaitlistCount().then(count => {
+      if (count > 0) setWaitlistCount(count)
+    })
+  }, [])
+
+  const handleSignup = async (data: WaitlistData): Promise<void> => {
+    const result = await joinWaitlist({
+      email: data.email,
+      name: data.name,
+      source: data.source,
+      freelance_type: data.freelanceType,
+      pain_point: data.painPoint,
+      current_tool: data.currentTool,
+    })
+    setWaitlistCount(result.count)
   }
 
   return (

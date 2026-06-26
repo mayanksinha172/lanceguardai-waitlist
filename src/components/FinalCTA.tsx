@@ -3,7 +3,7 @@ import WaitlistForm, { type WaitlistData } from './WaitlistForm'
 
 interface FinalCTAProps {
   waitlistCount: number
-  onSignup: (data: WaitlistData) => void
+  onSignup: (data: WaitlistData) => Promise<void>
 }
 
 export default function FinalCTA({ waitlistCount, onSignup }: FinalCTAProps) {
@@ -46,7 +46,7 @@ export default function FinalCTA({ waitlistCount, onSignup }: FinalCTAProps) {
           </p>
 
           <div className="max-w-sm mx-auto">
-            <WaitlistForm onSignup={onSignup} />
+            <WaitlistForm source="cta" onSignup={onSignup} />
           </div>
         </motion.div>
       </div>

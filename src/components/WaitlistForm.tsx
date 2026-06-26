@@ -1,18 +1,19 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react'
+import { ArrowRight, CheckCircle, ChevronRight, ChevronLeft, Loader2 } from 'lucide-react'
 
 export interface WaitlistData {
   name: string
   email: string
+  source: 'hero' | 'cta'
   freelanceType: string
   painPoint: string
   currentTool: string
 }
 
 interface WaitlistFormProps {
-  onSignup: (data: WaitlistData) => void
-  onConfetti?: () => void
+  source: 'hero' | 'cta'
+  onSignup: (data: WaitlistData) => Promise<void>
 }
 
 const QUESTIONS = [
@@ -55,15 +56,19 @@ const CONFETTI_COLORS = [
   '#ff801f', '#ffc53d', '#ff2047', '#888e90',
 ]
 
-export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps) {
+const slide = {
+  enter: (d: number) => ({ opacity: 0, x: d * 24 }),
+  center: { opacity: 1, x: 0 },
+  exit: (d: number) => ({ opacity: 0, x: d * -24 }),
+}
+
+export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
   const [step, setStep] = useState(0)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [answers, setAnswers] = useState<Record<string, string>>({
-    freelanceType: '',
-    painPoint: '',
-    currentTool: '',
-  })
+  const [answers, setAnswers] = useState({ freelanceType: '', painPoint: '', currentTool: '' })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [confetti, setConfetti] = useState(false)
 
   const handleStep1 = (e: React.FormEvent) => {
@@ -72,28 +77,29 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
     setStep(1)
   }
 
-  const handleStep2 = (e: React.FormEvent) => {
+  const handleStep2 = async (e: React.FormEvent) => {
     e.preventDefault()
     const { freelanceType, painPoint, currentTool } = answers
     if (!freelanceType || !painPoint || !currentTool) return
-    onSignup({ name, email, freelanceType, painPoint, currentTool })
-    setConfetti(true)
-    onConfetti?.()
-    setTimeout(() => setConfetti(false), 1200)
-    setStep(2)
+
+    setLoading(true)
+    setError('')
+    try {
+      await onSignup({ name, email, source, freelanceType, painPoint, currentTool })
+      setConfetti(true)
+      setTimeout(() => setConfetti(false), 1200)
+      setStep(2)
+    } catch {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const select = (key: string, value: string) =>
+  const select = (key: keyof typeof answers, value: string) =>
     setAnswers(a => ({ ...a, [key]: value }))
 
-  const step2Complete =
-    answers.freelanceType && answers.painPoint && answers.currentTool
-
-  const slideVariants = {
-    enter: (dir: number) => ({ opacity: 0, x: dir * 24 }),
-    center: { opacity: 1, x: 0 },
-    exit: (dir: number) => ({ opacity: 0, x: dir * -24 }),
-  }
+  const step2Ready = answers.freelanceType && answers.painPoint && answers.currentTool
 
   return (
     <div className="relative w-full">
@@ -104,7 +110,7 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
           <motion.form
             key="step1"
             custom={-1}
-            variants={slideVariants}
+            variants={slide}
             initial="enter"
             animate="center"
             exit="exit"
@@ -112,7 +118,6 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
             onSubmit={handleStep1}
             className="space-y-2"
           >
-            {/* Step indicator */}
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[11px] font-ui text-[#464a4d]">Step 1 of 2</span>
               <div className="flex gap-1 ml-auto">
@@ -128,11 +133,7 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
               onChange={e => setName(e.target.value)}
               required
               className="w-full px-4 text-[#fcfdff] placeholder-[#464a4d] text-sm font-ui focus:outline-none transition-all duration-200 rounded-lg"
-              style={{
-                background: '#0a0a0c',
-                border: '1px solid rgba(255,255,255,0.14)',
-                height: '40px',
-              }}
+              style={{ background: '#0a0a0c', border: '1px solid rgba(255,255,255,0.14)', height: '40px' }}
               onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.55)' }}
               onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)' }}
             />
@@ -145,11 +146,7 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
                 onChange={e => setEmail(e.target.value)}
                 required
                 className="flex-1 px-4 text-[#fcfdff] placeholder-[#464a4d] text-sm font-ui focus:outline-none transition-all duration-200 rounded-lg"
-                style={{
-                  background: '#0a0a0c',
-                  border: '1px solid rgba(255,255,255,0.14)',
-                  height: '40px',
-                }}
+                style={{ background: '#0a0a0c', border: '1px solid rgba(255,255,255,0.14)', height: '40px' }}
                 onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.55)' }}
                 onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)' }}
               />
@@ -166,7 +163,7 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
           <motion.form
             key="step2"
             custom={1}
-            variants={slideVariants}
+            variants={slide}
             initial="enter"
             animate="center"
             exit="exit"
@@ -174,7 +171,6 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
             onSubmit={handleStep2}
             className="space-y-4"
           >
-            {/* Step indicator + back */}
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -217,7 +213,10 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
               </div>
             ))}
 
-            {/* Submit button with confetti */}
+            {error && (
+              <p className="text-[11px] font-ui text-[#ff2047] text-center">{error}</p>
+            )}
+
             <div className="relative pt-1">
               {confetti && (
                 <div className="absolute inset-0 pointer-events-none overflow-visible" aria-hidden>
@@ -241,15 +240,21 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
               )}
               <button
                 type="submit"
-                disabled={!step2Complete}
+                disabled={!step2Ready || loading}
                 className="btn-primary w-full h-[40px] font-ui justify-center"
-                style={{
-                  opacity: step2Complete ? 1 : 0.35,
-                  cursor: step2Complete ? 'pointer' : 'not-allowed',
-                }}
+                style={{ opacity: step2Ready && !loading ? 1 : 0.35, cursor: step2Ready && !loading ? 'pointer' : 'not-allowed' }}
               >
-                Join Waitlist
-                <ArrowRight className="w-3.5 h-3.5" />
+                {loading ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    Joining…
+                  </>
+                ) : (
+                  <>
+                    Join Waitlist
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </>
+                )}
               </button>
             </div>
           </motion.form>
@@ -260,7 +265,7 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
           <motion.div
             key="success"
             custom={1}
-            variants={slideVariants}
+            variants={slide}
             initial="enter"
             animate="center"
             exit="exit"
@@ -269,7 +274,9 @@ export default function WaitlistForm({ onSignup, onConfetti }: WaitlistFormProps
             style={{ borderColor: 'rgba(17,255,153,0.3)' }}
           >
             <CheckCircle className="w-7 h-7 text-[#11ff99] mx-auto mb-2" />
-            <p className="font-ui font-medium text-[#fcfdff] mb-1">You're on the list, {name.split(' ')[0]}.</p>
+            <p className="font-ui font-medium text-[#fcfdff] mb-1">
+              You're on the list, {name.split(' ')[0]}.
+            </p>
             <p className="font-marketing text-sm text-[#a1a4a5]">We'll reach out when your spot opens.</p>
           </motion.div>
         )}

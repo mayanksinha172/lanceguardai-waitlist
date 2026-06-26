@@ -8,7 +8,7 @@ const cycleWords = ['money', 'time', 'clients', 'margins']
 interface HeroProps {
   formRef: RefObject<HTMLDivElement | null>
   waitlistCount: number
-  onSignup: (data: WaitlistData) => void
+  onSignup: (data: WaitlistData) => Promise<void>
 }
 
 export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
@@ -124,7 +124,7 @@ export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-md mx-auto mb-10"
         >
-          <WaitlistForm onSignup={onSignup} />
+          <WaitlistForm source="hero" onSignup={onSignup} />
         </motion.div>
 
         {/* Stats row: JetBrains Mono for numbers, Inter for labels */}
