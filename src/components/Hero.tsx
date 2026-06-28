@@ -39,8 +39,7 @@ function AnimatedWord({ word, delay, color }: { word: string; delay: number; col
 export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
   const [wordIndex, setWordIndex] = useState(0)
   const { scrollY } = useScroll()
-  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0])
-  const heroScale = useTransform(scrollY, [0, 500], [1, 0.95])
+  const heroScale = useTransform(scrollY, [0, 600], [1, 0.97])
 
   useEffect(() => {
     const id = setInterval(() => setWordIndex(i => (i + 1) % cycleWords.length), 2400)
@@ -58,7 +57,7 @@ export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
 
       {/* Content — fades on scroll */}
       <motion.div
-        style={{ opacity: heroOpacity, scale: heroScale }}
+        style={{ scale: heroScale }}
         className="relative z-10 max-w-4xl mx-auto text-center"
       >
 
@@ -164,18 +163,26 @@ export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
           ].map(({ value, label, color }, i) => (
             <motion.div
               key={label}
-              className="flex flex-col items-center gap-0.5"
+              className="flex flex-col items-center gap-1"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.5 + i * 0.1 }}
             >
-              <span
-                className="font-display text-2xl"
-                style={{ color, textShadow: `0 0 24px ${color}60`, letterSpacing: '-0.03em' }}
+              <motion.span
+                className="font-display tabular-nums"
+                style={{
+                  color,
+                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                  letterSpacing: '-0.04em',
+                  lineHeight: 1,
+                  textShadow: `0 0 40px ${color}70, 0 0 80px ${color}30`,
+                }}
+                animate={{ textShadow: [`0 0 20px ${color}40`, `0 0 60px ${color}80`, `0 0 30px ${color}50`] }}
+                transition={{ duration: 2.5, delay: 1.6 + i * 0.15, repeat: Infinity, repeatType: 'reverse' }}
               >
                 {value}
-              </span>
-              <span className="font-mono text-[10px] tracking-widest uppercase" style={{ color: 'rgba(237,240,255,0.3)' }}>
+              </motion.span>
+              <span className="font-mono text-[10px] tracking-widest uppercase" style={{ color: 'rgba(237,240,255,0.35)' }}>
                 {label}
               </span>
             </motion.div>

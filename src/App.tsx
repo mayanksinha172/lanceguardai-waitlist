@@ -33,7 +33,7 @@ export default function App() {
 
   useEffect(() => {
     getWaitlistCount().then(count => {
-      if (count > 0) setWaitlistCount(count)
+      if (count > 0) setWaitlistCount(Math.max(count, 20))
     })
   }, [])
 
