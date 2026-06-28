@@ -13,27 +13,49 @@ export default function Navbar({ formRef }: NavbarProps) {
 
   return (
     <motion.nav
-      initial={{ opacity: 0, y: -12 }}
+      initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="sticky top-[1px] z-50 flex items-center justify-between px-6 lg:px-12 py-0 h-16"
+      transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="sticky top-[1px] z-50 flex items-center justify-between px-6 lg:px-12 h-16"
     >
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-xl border-b border-white/[0.06]" />
+      {/* Glass background */}
+      <div
+        className="absolute inset-0 border-b"
+        style={{
+          background: 'rgba(3,6,16,0.75)',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          borderColor: 'rgba(237,240,255,0.06)',
+        }}
+      />
 
+      {/* Brand */}
       <div className="relative flex items-center gap-2.5">
-        <div className="w-7 h-7 rounded-lg border border-white/[0.14] bg-[#0a0a0c] flex items-center justify-center">
-          <Shield className="w-3.5 h-3.5 text-[#fcfdff]" />
+        <div
+          className="w-7 h-7 rounded-lg flex items-center justify-center"
+          style={{
+            background: 'rgba(17,255,153,0.08)',
+            border: '1px solid rgba(17,255,153,0.2)',
+          }}
+        >
+          <Shield className="w-3.5 h-3.5" style={{ color: '#11ff99' }} />
         </div>
-        {/* Logo: marketing font, tight tracking */}
-        <span className="font-marketing font-semibold text-[#fcfdff] text-sm tracking-tight">
-          LanceGuardAI
+        <span
+          className="font-display font-bold text-sm tracking-tight"
+          style={{ color: '#EDF0FF', letterSpacing: '-0.01em' }}
+        >
+          Lance<span style={{ color: '#11ff99' }}>Guard</span>
+          <span style={{ color: 'rgba(237,240,255,0.4)' }}>AI</span>
         </span>
-        {/* Badge: Inter UI font */}
-        <span className="badge-pill ml-1 font-ui">Beta</span>
+        <span
+          className="badge-pill ml-1 font-mono text-[10px]"
+          style={{ color: 'rgba(17,255,153,0.7)', borderColor: 'rgba(17,255,153,0.15)' }}
+        >
+          Beta
+        </span>
       </div>
 
-      {/* CTA: Inter, precise */}
-      <button onClick={scrollToForm} className="relative btn-primary font-ui">
+      {/* CTA */}
+      <button onClick={scrollToForm} className="relative btn-primary">
         Join Waitlist
       </button>
     </motion.nav>

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import ScrollProgressBar from './components/ScrollProgressBar'
+import CustomCursor from './components/CustomCursor'
+import PageLoader from './components/PageLoader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
@@ -26,6 +28,7 @@ function useUtmParams() {
 export default function App() {
   const formRef = useRef<HTMLDivElement | null>(null)
   const [waitlistCount, setWaitlistCount] = useState(214)
+  const [loaded, setLoaded] = useState(false)
   const utmParams = useUtmParams()
 
   useEffect(() => {
@@ -48,25 +51,37 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-black font-body">
-      <ScrollProgressBar />
-      <Navbar formRef={formRef} />
-      <Hero formRef={formRef} waitlistCount={waitlistCount} onSignup={handleSignup} />
-      <SectionDivider />
-      <Marquee />
-      <SectionDivider />
-      <Problems />
-      <SectionDivider />
-      <ScopeDemo />
-      <SectionDivider />
-      <BentoFeatures />
-      <SectionDivider />
-      <HowItWorks />
-      <SectionDivider />
-      <Testimonials />
-      <SectionDivider />
-      <FinalCTA waitlistCount={waitlistCount} onSignup={handleSignup} />
-      <Footer />
-    </div>
+    <>
+      <CustomCursor />
+      <PageLoader onDone={() => setLoaded(true)} />
+
+      <div
+        className="min-h-screen font-body"
+        style={{
+          background: '#030610',
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 0.4s ease',
+        }}
+      >
+        <ScrollProgressBar />
+        <Navbar formRef={formRef} />
+        <Hero formRef={formRef} waitlistCount={waitlistCount} onSignup={handleSignup} />
+        <SectionDivider />
+        <Marquee />
+        <SectionDivider />
+        <Problems />
+        <SectionDivider />
+        <ScopeDemo />
+        <SectionDivider />
+        <BentoFeatures />
+        <SectionDivider />
+        <HowItWorks />
+        <SectionDivider />
+        <Testimonials />
+        <SectionDivider />
+        <FinalCTA waitlistCount={waitlistCount} onSignup={handleSignup} />
+        <Footer />
+      </div>
+    </>
   )
 }

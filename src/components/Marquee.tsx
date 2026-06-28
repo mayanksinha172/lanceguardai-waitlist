@@ -16,16 +16,31 @@ export default function Marquee() {
 
   return (
     <div className="relative py-8 overflow-hidden">
-      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+      {/* Fade edges */}
+      <div
+        className="absolute inset-y-0 left-0 w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(90deg, #030610, transparent)' }}
+      />
+      <div
+        className="absolute inset-y-0 right-0 w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(270deg, #030610, transparent)' }}
+      />
 
-      <div className="flex animate-marquee whitespace-nowrap gap-4">
+      <div className="flex animate-marquee whitespace-nowrap gap-3">
         {items.map((text, i) => (
           <span
             key={i}
-            /* Plus Jakarta Sans — conversational, human feel */
-            className="font-marketing inline-flex items-center px-4 py-2 text-sm text-[#888e90] border border-white/[0.06] rounded-full flex-shrink-0 hover:text-[rgba(252,253,255,0.65)] hover:border-white/[0.12] transition-colors bg-[#0a0a0c]"
+            className="font-marketing inline-flex items-center gap-2.5 px-4 py-2 text-sm flex-shrink-0 rounded-full transition-colors duration-200"
+            style={{
+              background: 'rgba(237,240,255,0.03)',
+              border: '1px solid rgba(237,240,255,0.07)',
+              color: 'rgba(237,240,255,0.4)',
+            }}
           >
+            <span
+              className="w-1 h-1 rounded-full flex-shrink-0"
+              style={{ background: i % 3 === 0 ? '#FF2D55' : i % 3 === 1 ? '#FFD60A' : '#4080FF', opacity: 0.7 }}
+            />
             {text}
           </span>
         ))}
