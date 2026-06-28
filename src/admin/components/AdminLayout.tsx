@@ -21,7 +21,7 @@ export default function AdminLayout({ children, activePage, onLogout }: AdminLay
         {/* Brand */}
         <div className="px-5 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <span className="text-[10px] font-ui font-semibold text-[#11ff99] tracking-widest uppercase">
-            FreelanceGuard AI
+            LanceGuardAI
           </span>
           <p className="text-[10px] font-ui text-[#464a4d] mt-0.5">Admin Panel</p>
         </div>

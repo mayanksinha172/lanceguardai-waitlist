@@ -17,8 +17,8 @@ async def _send(to_email: str, name: str, position: int) -> None:
     first = name.split()[0] if name else "there"
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"You're in, {first} — FreelanceGuard AI"
-    msg["From"] = f"FreelanceGuard AI <{GMAIL_ADDRESS}>"
+    msg["Subject"] = f"You're in, {first} — LanceGuardAI"
+    msg["From"] = f"LanceGuardAI <{GMAIL_ADDRESS}>"
     msg["To"] = to_email
 
     html = f"""
@@ -32,7 +32,7 @@ async def _send(to_email: str, name: str, position: int) -> None:
         <!-- Brand -->
         <tr><td style="padding-bottom:32px">
           <span style="font-size:11px;color:#11ff99;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">
-            FreelanceGuard AI
+            LanceGuardAI
           </span>
         </td></tr>
 
@@ -53,7 +53,7 @@ async def _send(to_email: str, name: str, position: int) -> None:
 
         <tr><td style="padding-bottom:32px">
           <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(252,253,255,0.55)">
-            FreelanceGuard AI writes proposals in under 60 seconds, detects scope creep in real time,
+            LanceGuardAI writes proposals in under 60 seconds, detects scope creep in real time,
             and auto-generates priced change orders — so every hour of work gets paid.
           </p>
         </td></tr>
@@ -61,7 +61,7 @@ async def _send(to_email: str, name: str, position: int) -> None:
         <!-- Divider -->
         <tr><td style="border-top:1px solid rgba(255,255,255,0.08);padding-top:24px">
           <p style="margin:0;font-size:11px;color:#464a4d;line-height:1.6">
-            You're receiving this because you joined the FreelanceGuard AI waitlist.<br>
+            You're receiving this because you joined the LanceGuardAI waitlist.<br>
             No spam ever. Reply to unsubscribe.
           </p>
         </td></tr>

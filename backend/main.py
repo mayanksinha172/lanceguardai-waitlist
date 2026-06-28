@@ -1,5 +1,5 @@
 """
-FreelanceGuard AI — FastAPI backend
+LanceGuardAI — FastAPI backend
 Run: uvicorn main:app --reload --port 8000
 """
 import csv
@@ -45,7 +45,7 @@ ALLOWED_ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "http://local
 
 limiter = Limiter(key_func=get_remote_address)
 
-app = FastAPI(title="FreelanceGuard AI API", version="1.0.0")
+app = FastAPI(title="LanceGuardAI API", version="1.0.0")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 

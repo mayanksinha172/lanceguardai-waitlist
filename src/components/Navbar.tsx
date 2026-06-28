@@ -26,7 +26,7 @@ export default function Navbar({ formRef }: NavbarProps) {
         </div>
         {/* Logo: marketing font, tight tracking */}
         <span className="font-marketing font-semibold text-[#fcfdff] text-sm tracking-tight">
-          FreelanceGuard AI
+          LanceGuardAI
         </span>
         {/* Badge: Inter UI font */}
         <span className="badge-pill ml-1 font-ui">Beta</span>

@@ -10,7 +10,7 @@ export default function Footer() {
               <Shield className="w-3 h-3 text-[#fcfdff]" />
             </div>
             {/* Logo: Plus Jakarta Sans */}
-            <span className="font-marketing font-semibold text-[#fcfdff] text-sm">FreelanceGuard AI</span>
+            <span className="font-marketing font-semibold text-[#fcfdff] text-sm">LanceGuardAI</span>
           </div>
 
           {/* Nav links: Inter */}
@@ -18,7 +18,7 @@ export default function Footer() {
             {['Privacy', 'Terms', 'Contact'].map(label => (
               <a
                 key={label}
-                href={label === 'Contact' ? 'mailto:hello@freelanceguard.ai' : '#'}
+                href={label === 'Contact' ? 'mailto:hello@lanceguardai.com' : '#'}
                 className="font-ui text-xs text-[#888e90] hover:text-[rgba(252,253,255,0.65)] transition-colors"
               >
                 {label}
@@ -30,7 +30,7 @@ export default function Footer() {
         <div className="border-t border-white/[0.04] pt-6">
           {/* Copyright: Inter caption */}
           <p className="font-ui text-xs text-[#464a4d] text-center">
-            © 2025 FreelanceGuard AI · Built for freelancers who value their time
+            © 2025 LanceGuardAI · Built for freelancers who value their time
           </p>
         </div>
       </div>

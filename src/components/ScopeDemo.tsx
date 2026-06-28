@@ -76,7 +76,7 @@ export default function ScopeDemo() {
             Watch AI catch scope creep.
           </h2>
           <p className="font-marketing text-lg max-w-xl mx-auto" style={{ color: 'rgba(252,253,255,0.65)' }}>
-            This is exactly what FreelanceGuard does the moment a client message arrives.
+            This is exactly what LanceGuardAI does the moment a client message arrives.
           </p>
         </motion.div>
 
@@ -131,7 +131,7 @@ export default function ScopeDemo() {
             <div className="flex items-center gap-2 mb-5 pb-4 border-b border-white/[0.06]">
               <div className={`w-2 h-2 rounded-full ${step === 'idle' ? 'bg-[#464a4d]' : step === 'scanning' ? 'bg-[#ffc53d] animate-pulse' : 'bg-[#11ff99]'}`} />
               {/* Panel header: Inter */}
-              <p className="font-ui text-xs font-medium text-[#888e90] uppercase tracking-wider">FreelanceGuard AI</p>
+              <p className="font-ui text-xs font-medium text-[#888e90] uppercase tracking-wider">LanceGuardAI</p>
               <AnimatePresence>
                 {step === 'scanning' && (
                   <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}

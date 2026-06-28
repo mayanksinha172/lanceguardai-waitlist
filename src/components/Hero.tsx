@@ -112,7 +112,7 @@ export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          FreelanceGuard AI writes proposals, detects scope creep in real time, and auto-generates
+          LanceGuardAI writes proposals, detects scope creep in real time, and auto-generates
           priced change orders — so every hour of work gets paid.
         </motion.p>
 

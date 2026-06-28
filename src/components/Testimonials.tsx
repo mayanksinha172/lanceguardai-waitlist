@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion'
 
 const quotes = [
   {
-    body: 'I used to lose 20–30% of every project to scope creep. FreelanceGuard caught it automatically — I sent a change order before I even knew what happened. First week: $800 extra.',
+    body: 'I used to lose 20–30% of every project to scope creep. LanceGuardAI caught it automatically — I sent a change order before I even knew what happened. First week: $800 extra.',
     name: 'Alex Rivera',
     role: 'Full-Stack Developer',
     avatar: 'AR',
@@ -15,7 +15,7 @@ const quotes = [
     avatar: 'PN',
   },
   {
-    body: 'As a freelance copywriter, scope creep killed my margins. I thought it was a "me" problem until I used FreelanceGuard. Now my clients respect boundaries because the contract enforces them.',
+    body: 'As a freelance copywriter, scope creep killed my margins. I thought it was a "me" problem until I used LanceGuardAI. Now my clients respect boundaries because the contract enforces them.',
     name: 'Marcus Webb',
     role: 'Freelance Copywriter',
     avatar: 'MW',

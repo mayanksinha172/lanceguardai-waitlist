@@ -38,7 +38,7 @@ export default function Login({ onLogin }: LoginProps) {
         {/* Logo */}
         <div className="text-center mb-8">
           <span className="text-[11px] font-ui font-semibold text-[#11ff99] tracking-widest uppercase">
-            FreelanceGuard AI
+            LanceGuardAI
           </span>
           <p className="text-[#464a4d] text-xs font-ui mt-1">Admin Panel</p>
         </div>
