@@ -4,23 +4,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper: {
-          DEFAULT: '#F6F1E5',
-          bright:  '#FCF9F1',
-          shade:   '#EFE8D8',
+        blueprint: {
+          DEFAULT: '#0B2545',
+          panel:   '#0E2C53',
+          deep:    '#081C36',
         },
-        ink: {
-          DEFAULT: '#191407',
-          soft:    'rgba(25,20,7,0.62)',
-          faint:   'rgba(25,20,7,0.38)',
-          hair:    'rgba(25,20,7,0.14)',
+        line: {
+          DEFAULT: 'rgba(214,232,255,0.92)',
+          soft:    'rgba(214,232,255,0.6)',
+          faint:   'rgba(214,232,255,0.35)',
+          hair:    'rgba(214,232,255,0.16)',
+          grid:    'rgba(214,232,255,0.05)',
         },
-        pen:   '#D92B1C',
-        money: '#1E6B45',
-        mark:  '#F5D90A',
+        alert: '#FF5A45',
+        amber: '#FFC857',
       },
       fontFamily: {
-        display: ['"Fraunces"', 'Georgia', 'serif'],
+        display: ['"Chakra Petch"', 'sans-serif'],
+        hand:    ['"Architects Daughter"', 'cursive'],
         body:    ['"DM Sans"', 'sans-serif'],
         ui:      ['"DM Sans"', 'sans-serif'],
         mono:    ['"JetBrains Mono"', 'monospace'],
@@ -40,16 +41,16 @@ export default {
           '0%, 100%': { opacity: '1' },
           '50%':      { opacity: '0' },
         },
-        confettiBurst: {
-          '0%':   { transform: 'translateY(0) rotate(0deg)', opacity: '1' },
-          '100%': { transform: 'translateY(-120px) rotate(720deg)', opacity: '0' },
+        blip: {
+          '0%, 100%': { opacity: '0.4' },
+          '50%':      { opacity: '1' },
         },
       },
       animation: {
         marquee:    'marquee 30s linear infinite',
         'stamp-in': 'stampIn 0.5s cubic-bezier(0.22, 1.4, 0.36, 1) both',
         caret:      'caret 1s steps(1) infinite',
-        confetti:   'confettiBurst 0.8s ease-out forwards',
+        blip:       'blip 1.6s ease-in-out infinite',
       },
     },
   },

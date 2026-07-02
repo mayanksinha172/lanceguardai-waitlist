@@ -67,16 +67,16 @@ export default function ScopeDemo() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14 max-w-2xl"
         >
-          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-pen font-semibold mb-4">
-            Exhibit A — live demonstration
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-alert font-semibold mb-4">
+            DWG 003 — Field test, recorded live
           </p>
           <h2
-            className="font-display font-bold text-ink"
+            className="font-display font-bold text-line"
             style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', lineHeight: 1.05, letterSpacing: '-0.025em' }}
           >
-            Watch the AI <span className="hl">catch it red-handed.</span>
+            Watch the AI <span className="hatch-red px-1.5">catch it red-handed.</span>
           </h2>
-          <p className="font-body text-lg text-ink-soft mt-4">
+          <p className="font-body text-lg text-line-soft mt-4">
             This is exactly what happens the moment a client message arrives.
           </p>
         </motion.div>
@@ -89,15 +89,15 @@ export default function ScopeDemo() {
               whileInView={{ opacity: 1, rotate: -0.8 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6 }}
-              className="sheet p-6"
+              className="panel p-6"
             >
-              <div className="flex items-baseline justify-between mb-4 pb-3 border-b border-ink-hair">
-                <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-faint">
+              <div className="flex items-baseline justify-between mb-4 pb-3 border-b border-line-hair">
+                <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-line-faint">
                   From: Sarah Chen
                 </p>
-                <p className="font-mono text-[10px] text-ink-faint">just now</p>
+                <p className="font-mono text-[10px] text-line-faint">just now</p>
               </div>
-              <p className="font-body italic text-[15px] leading-relaxed text-ink">
+              <p className="font-body italic text-[15px] leading-relaxed text-line">
                 “{clientMessage}”
               </p>
             </motion.div>
@@ -107,16 +107,16 @@ export default function ScopeDemo() {
               whileInView={{ opacity: 1, rotate: 0.6 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="sheet p-6"
+              className="panel p-6"
             >
-              <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-faint mb-4">
+              <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-line-faint mb-4">
                 Signed scope · SOW № 004
               </p>
               <ul className="space-y-2">
                 {originalScope.map(item => (
                   <li key={item} className="flex items-baseline gap-3">
-                    <span className="font-mono text-xs font-semibold text-money">✓</span>
-                    <span className="font-body text-sm text-ink-soft">{item}</span>
+                    <span className="font-mono text-xs font-semibold text-amber">✓</span>
+                    <span className="font-body text-sm text-line-soft">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -124,9 +124,9 @@ export default function ScopeDemo() {
           </div>
 
           {/* Right: the audit sheet */}
-          <div className="sheet margin-line p-6 pl-12 min-h-[380px] flex flex-col">
-            <div className="flex items-center justify-between mb-5 pb-3 border-b border-ink-hair">
-              <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-soft font-semibold">
+          <div className="panel p-6 min-h-[380px] flex flex-col">
+            <div className="flex items-center justify-between mb-5 pb-3 border-b border-line-hair">
+              <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-line-soft font-semibold">
                 LanceGuardAI · Audit
               </p>
               <AnimatePresence mode="wait">
@@ -134,7 +134,7 @@ export default function ScopeDemo() {
                   <motion.span
                     key="scanning"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="font-mono text-[10px] text-ink-soft"
+                    className="font-mono text-[10px] text-line-soft"
                   >
                     reviewing against contract…
                   </motion.span>
@@ -143,7 +143,7 @@ export default function ScopeDemo() {
                   <motion.span
                     key="done"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                    className="font-mono text-[10px] font-semibold text-pen"
+                    className="font-mono text-[10px] font-semibold text-alert"
                   >
                     2 VIOLATIONS FOUND
                   </motion.span>
@@ -155,13 +155,13 @@ export default function ScopeDemo() {
             <AnimatePresence>
               {step === 'scanning' && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mb-5">
-                  <div className="relative h-[3px] mb-2" style={{ background: 'rgba(25,20,7,0.08)' }}>
+                  <div className="relative h-[3px] mb-2" style={{ background: 'rgba(214,232,255,0.08)' }}>
                     <div
                       className="absolute left-0 top-0 h-full"
-                      style={{ width: `${scanProgress}%`, background: '#D92B1C', transition: 'width 0.05s linear' }}
+                      style={{ width: `${scanProgress}%`, background: '#FF5A45', transition: 'width 0.05s linear' }}
                     />
                   </div>
-                  <p className="font-mono text-[10px] text-ink-faint">
+                  <p className="font-mono text-[10px] text-line-faint">
                     comparing request · clause by clause
                   </p>
                 </motion.div>
@@ -186,19 +186,19 @@ export default function ScopeDemo() {
                       className="flex items-baseline justify-between gap-4"
                     >
                       <div className="relative inline-block">
-                        <span className="font-body text-sm text-ink">{item}</span>
+                        <span className="font-body text-sm text-line">{item}</span>
                         <motion.div
                           initial={{ scaleX: 0 }}
                           animate={{ scaleX: 1 }}
                           transition={{ duration: 0.4, delay: 0.3 + i * 0.15, ease: [0.7, 0, 0.3, 1] }}
                           className="absolute left-0 right-0 top-1/2 h-[2px] origin-left"
-                          style={{ background: '#D92B1C' }}
+                          style={{ background: '#FF5A45' }}
                         />
                       </div>
-                      <span className="font-mono text-sm font-semibold text-money whitespace-nowrap">{price}</span>
+                      <span className="font-mono text-sm font-semibold text-amber whitespace-nowrap">{price}</span>
                     </motion.div>
                   ))}
-                  <p className="font-mono text-[10px] tracking-[0.15em] font-semibold text-pen">
+                  <p className="font-mono text-[10px] tracking-[0.15em] font-semibold text-alert">
                     ✗ NOT IN SIGNED SCOPE — §2.1, §2.4
                   </p>
                 </motion.div>
@@ -212,21 +212,21 @@ export default function ScopeDemo() {
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="flex items-end justify-between pt-4 border-t border-ink-hair"
+                    className="flex items-end justify-between pt-4 border-t border-line-hair"
                   >
                     <div className="stamp animate-stamp-in text-base">Change order</div>
                     <div className="text-right">
-                      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-ink-faint mb-1">
+                      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-line-faint mb-1">
                         2 items · ready to send
                       </p>
-                      <p className="font-display font-black text-3xl text-ink tabular-nums">$1,800</p>
+                      <p className="font-display font-black text-3xl text-line tabular-nums">$1,800</p>
                     </div>
                   </motion.div>
                 )}
                 {step === 'idle' && (
                   <motion.p
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="font-mono text-[11px] text-ink-faint text-center pb-8"
+                    className="font-mono text-[11px] text-line-faint text-center pb-8"
                   >
                     awaiting client correspondence…
                   </motion.p>

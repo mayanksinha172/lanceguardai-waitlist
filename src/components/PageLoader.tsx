@@ -5,7 +5,7 @@ interface PageLoaderProps {
   onDone: () => void
 }
 
-const TYPED = 'LANCEGUARD AI — CONTRACT DEFENSE'
+const TYPED = 'LANCEGUARD AI — DWG № 001 — SCOPE DEFENSE SYSTEM'
 
 export default function PageLoader({ onDone }: PageLoaderProps) {
   const [chars, setChars] = useState(0)
@@ -18,9 +18,9 @@ export default function PageLoader({ onDone }: PageLoaderProps) {
         if (c >= TYPED.length) { clearInterval(typer); return c }
         return c + 1
       })
-    }, 22)
-    const stampT = setTimeout(() => setStamped(true), TYPED.length * 22 + 250)
-    const doneT = setTimeout(() => { setGone(true); onDone() }, TYPED.length * 22 + 1050)
+    }, 18)
+    const stampT = setTimeout(() => setStamped(true), TYPED.length * 18 + 250)
+    const doneT = setTimeout(() => { setGone(true); onDone() }, TYPED.length * 18 + 1050)
     return () => { clearInterval(typer); clearTimeout(stampT); clearTimeout(doneT) }
   }, [onDone])
 
@@ -31,14 +31,14 @@ export default function PageLoader({ onDone }: PageLoaderProps) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35 }}
           className="fixed inset-0 z-[200] flex flex-col items-center justify-center gap-8"
-          style={{ background: '#F6F1E5' }}
+          style={{ background: '#0B2545' }}
         >
-          <p className="font-mono text-xs sm:text-sm tracking-[0.2em] text-ink">
+          <p className="font-mono text-xs sm:text-sm tracking-[0.2em] text-line">
             {TYPED.slice(0, chars)}
             <span className="animate-caret">▌</span>
           </p>
           {stamped && (
-            <div className="stamp animate-stamp-in text-xl sm:text-2xl">Protected</div>
+            <div className="stamp stamp--pass animate-stamp-in text-xl sm:text-2xl">Approved</div>
           )}
         </motion.div>
       )}

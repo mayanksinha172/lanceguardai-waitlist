@@ -115,7 +115,7 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
     }))
 
   const inputClass =
-    'w-full bg-transparent font-body text-[15px] text-ink placeholder:text-ink-faint focus:outline-none py-2 border-b-2 transition-colors duration-150'
+    'w-full bg-transparent font-body text-[15px] text-line placeholder:text-line-faint focus:outline-none py-2 border-b-[1.5px] transition-colors duration-150'
 
   return (
     <div className="relative w-full">
@@ -135,7 +135,7 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
             className="space-y-5"
           >
             <div>
-              <label className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-soft block mb-1">
+              <label className="font-display text-[10px] tracking-[0.25em] uppercase text-line-soft block mb-1">
                 Full name
               </label>
               <input
@@ -145,14 +145,14 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
                 onChange={e => setName(e.target.value)}
                 required
                 className={inputClass}
-                style={{ borderColor: 'rgba(25,20,7,0.35)' }}
-                onFocus={e => { e.currentTarget.style.borderColor = '#191407' }}
-                onBlur={e => { e.currentTarget.style.borderColor = 'rgba(25,20,7,0.35)' }}
+                style={{ borderColor: 'rgba(214,232,255,0.35)' }}
+                onFocus={e => { e.currentTarget.style.borderColor = 'rgba(214,232,255,0.9)' }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'rgba(214,232,255,0.35)' }}
               />
             </div>
 
             <div>
-              <label className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-soft block mb-1">
+              <label className="font-display text-[10px] tracking-[0.25em] uppercase text-line-soft block mb-1">
                 Email
               </label>
               <input
@@ -162,9 +162,9 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
                 onChange={e => { setEmail(e.target.value); if (emailError) setEmailError('') }}
                 required
                 className={inputClass}
-                style={{ borderColor: emailError ? '#D92B1C' : 'rgba(25,20,7,0.35)' }}
-                onFocus={e => { if (!emailError) e.currentTarget.style.borderColor = '#191407' }}
-                onBlur={e => { if (!emailError) e.currentTarget.style.borderColor = 'rgba(25,20,7,0.35)' }}
+                style={{ borderColor: emailError ? '#FF5A45' : 'rgba(214,232,255,0.35)' }}
+                onFocus={e => { if (!emailError) e.currentTarget.style.borderColor = 'rgba(214,232,255,0.9)' }}
+                onBlur={e => { if (!emailError) e.currentTarget.style.borderColor = 'rgba(214,232,255,0.35)' }}
               />
               <AnimatePresence>
                 {emailError && (
@@ -172,19 +172,19 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="font-mono text-[10px] tracking-wide text-pen mt-2 font-semibold"
+                    className="font-mono text-[10px] tracking-wide text-alert mt-2 font-semibold"
                   >
-                    ✗ {emailError}
+                    ⚠ {emailError}
                   </motion.p>
                 )}
               </AnimatePresence>
             </div>
 
-            <button type="submit" className="btn-ink w-full">
+            <button type="submit" className="btn-draft w-full">
               Continue →
             </button>
 
-            <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-ink-faint text-center">
+            <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-line-faint text-center">
               No credit card · No spam · Unsubscribe anytime
             </p>
           </motion.form>
@@ -207,22 +207,22 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
               <button
                 type="button"
                 onClick={() => setStep(0)}
-                className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink-soft hover:text-pen transition-colors"
+                className="font-display text-[10px] tracking-[0.2em] uppercase text-line-soft hover:text-alert transition-colors"
               >
                 ← Back
               </button>
-              <span className="font-mono text-[10px] tracking-[0.2em] text-ink-faint">
-                PAGE 2 OF 2 · SELECT ALL THAT APPLY
+              <span className="font-mono text-[10px] tracking-[0.2em] text-line-faint">
+                SHEET 2 OF 2 · CHECK ALL THAT APPLY
               </span>
             </div>
 
             {QUESTIONS.map((q, qi) => (
               <div key={q.key}>
-                <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-soft mb-2">
-                  §{qi + 1}. {q.label}
+                <p className="font-display text-[10px] tracking-[0.25em] uppercase text-line-soft mb-2">
+                  {String(qi + 1).padStart(2, '0')}. {q.label}
                   {answers[q.key].length > 0 && (
-                    <span className="text-pen font-semibold ml-2">
-                      ({answers[q.key].length} checked)
+                    <span className="text-alert font-semibold ml-2">
+                      [{answers[q.key].length}]
                     </span>
                   )}
                 </p>
@@ -237,19 +237,19 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
                         className="flex items-baseline gap-2.5 text-left py-1 group"
                       >
                         <span
-                          className="flex-shrink-0 w-3.5 h-3.5 border-2 flex items-center justify-center transition-colors translate-y-[2px]"
+                          className="flex-shrink-0 w-3.5 h-3.5 border-[1.5px] flex items-center justify-center transition-colors translate-y-[2px]"
                           style={{
-                            borderColor: selected ? '#D92B1C' : 'rgba(25,20,7,0.4)',
-                            background: 'transparent',
+                            borderColor: selected ? '#FF5A45' : 'rgba(214,232,255,0.4)',
+                            background: selected ? 'rgba(255,90,69,0.15)' : 'transparent',
                           }}
                         >
                           {selected && (
-                            <span className="text-pen font-mono text-[11px] font-bold leading-none">✗</span>
+                            <span className="text-alert font-mono text-[11px] font-bold leading-none">✕</span>
                           )}
                         </span>
                         <span
                           className={`font-body text-sm transition-colors ${
-                            selected ? 'text-ink font-medium' : 'text-ink-soft group-hover:text-ink'
+                            selected ? 'text-line font-medium' : 'text-line-soft group-hover:text-line'
                           }`}
                         >
                           {opt}
@@ -262,11 +262,11 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
             ))}
 
             {error && (
-              <p className="font-mono text-[10px] tracking-wide text-pen font-semibold">✗ {error}</p>
+              <p className="font-mono text-[10px] tracking-wide text-alert font-semibold">⚠ {error}</p>
             )}
 
-            <button type="submit" disabled={!step2Ready || loading} className="btn-ink w-full">
-              {loading ? 'Filing…' : 'Sign & join the waitlist →'}
+            <button type="submit" disabled={!step2Ready || loading} className="btn-draft w-full">
+              {loading ? 'Filing…' : 'Approve & join the waitlist →'}
             </button>
           </motion.form>
         )}
@@ -278,28 +278,27 @@ export default function WaitlistForm({ source, onSignup }: WaitlistFormProps) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="sheet p-7 relative"
-            style={{ transform: 'rotate(-0.6deg)' }}
+            className="panel p-7 relative"
           >
-            <div className="stamp stamp--green animate-stamp-in text-lg absolute -top-4 right-4">
-              Filed
+            <div className="stamp stamp--pass animate-stamp-in text-lg absolute -top-4 right-4">
+              Approved
             </div>
 
-            <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-faint mb-3">
-              Receipt of registration
+            <p className="font-display text-[10px] tracking-[0.25em] uppercase text-line-faint mb-3">
+              Inspection record
             </p>
-            <p className="font-display font-bold text-2xl text-ink mb-2">
+            <p className="font-display font-bold text-2xl text-line mb-2">
               You're on the list, {name.split(' ')[0]}.
             </p>
-            <p className="font-body text-sm text-ink-soft mb-5 leading-relaxed">
-              We'll write when your spot opens. Early signatories get{' '}
-              <span className="hl font-semibold text-ink">3 months free</span>.
+            <p className="font-body text-sm text-line-soft mb-5 leading-relaxed">
+              We'll write when your spot opens. Early units get{' '}
+              <span className="font-semibold text-amber">3 months free</span>.
             </p>
 
-            <div className="pt-4 border-t border-ink-hair">
-              <p className="font-mono text-[11px] leading-relaxed text-ink-soft">
-                <span className="text-pen font-semibold">NB:</span> confirmation email sent —
-                if it's missing, check your <span className="font-semibold text-ink">Spam or
+            <div className="pt-4 border-t border-line-hair">
+              <p className="font-mono text-[11px] leading-relaxed text-line-soft">
+                <span className="text-alert font-semibold">NB:</span> confirmation email sent —
+                if it's missing, check your <span className="font-semibold text-line">Spam or
                 Promotions</span> folder.
               </p>
             </div>

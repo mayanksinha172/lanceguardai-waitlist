@@ -36,39 +36,27 @@ function StatEntry({ stat, index }: { stat: typeof stats[0]; index: number }) {
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
       className="relative py-8 lg:py-2 lg:px-10 lg:first:pl-0 lg:last:pr-0"
     >
-      <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-faint mb-3">
-        Item {String(index + 1).padStart(2, '0')}
+      <p className="font-display text-[10px] tracking-[0.25em] uppercase text-line-faint mb-3">
+        Measurement {String(index + 1).padStart(2, '0')}
       </p>
-      <div className="relative inline-block mb-3">
+      <div className="relative inline-block mb-4">
         <span
-          className="font-display font-black text-pen tabular-nums"
-          style={{ fontSize: 'clamp(3.5rem, 7vw, 5.5rem)', lineHeight: 0.95, letterSpacing: '-0.04em' }}
+          className="font-display font-bold text-alert tabular-nums"
+          style={{ fontSize: 'clamp(3.5rem, 7vw, 5.5rem)', lineHeight: 0.95, letterSpacing: '-0.02em' }}
         >
           <span ref={ref}>{count}</span>
           <span style={{ fontSize: '55%' }}>{stat.suffix}</span>
         </span>
-        {/* red pen underline squiggle */}
-        <svg
-          className="absolute -bottom-2 left-0 w-full pointer-events-none"
-          height="8"
-          viewBox="0 0 100 8"
-          preserveAspectRatio="none"
-          aria-hidden
-        >
-          <motion.path
-            d="M 2 5 Q 20 2, 38 5 T 70 4 T 98 5"
-            fill="none"
-            stroke="#D92B1C"
-            strokeWidth="2"
-            strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            animate={inView ? { pathLength: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 + index * 0.12 }}
-          />
-        </svg>
+        {/* dimension line beneath */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={inView ? { opacity: 1, scaleX: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.5 + index * 0.12 }}
+          className="dim-line mt-3 origin-left"
+        />
       </div>
-      <p className="font-display font-semibold text-lg text-ink leading-tight">{stat.label}</p>
-      <p className="font-body text-sm text-ink-soft mt-1">{stat.sub}</p>
+      <p className="font-display font-semibold text-lg text-line leading-tight">{stat.label}</p>
+      <p className="font-body text-sm text-line-soft mt-1">{stat.sub}</p>
     </motion.div>
   )
 }
@@ -87,24 +75,24 @@ export default function Problems() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14 max-w-2xl"
         >
-          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-pen font-semibold mb-4">
-            The evidence
+          <p className="font-display text-[10px] tracking-[0.3em] uppercase text-alert font-semibold mb-4">
+            DWG 002 — Site survey
           </p>
           <h2
-            className="font-display font-bold text-ink"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', lineHeight: 1.05, letterSpacing: '-0.025em' }}
+            className="font-display font-bold text-line"
+            style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)', lineHeight: 1.08, letterSpacing: '-0.01em' }}
           >
-            The numbers are <em className="font-black">embarrassing.</em>
+            The measurements are embarrassing.
           </h2>
-          <p className="font-body text-lg text-ink-soft mt-4">
+          <p className="font-body text-lg text-line-soft mt-4">
             Freelancers lose thousands every year — not to bad clients, but to
-            work that was never written down.
+            work that was never in the drawing.
           </p>
         </motion.div>
 
         <div
           className="grid lg:grid-cols-3 lg:divide-x divide-y lg:divide-y-0"
-          style={{ borderColor: 'rgba(25,20,7,0.14)' }}
+          style={{ borderColor: 'rgba(214,232,255,0.16)' }}
         >
           {stats.map((stat, i) => <StatEntry key={stat.label} stat={stat} index={i} />)}
         </div>

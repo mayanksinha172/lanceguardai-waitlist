@@ -54,7 +54,7 @@ export default function App() {
       <PageLoader onDone={() => setLoaded(true)} />
 
       <div
-        className="grain relative min-h-screen font-body"
+        className="relative min-h-screen font-body"
         style={{ opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease' }}
       >
         <ScrollProgressBar />
@@ -62,13 +62,13 @@ export default function App() {
         <Hero formRef={formRef} waitlistCount={waitlistCount} onSignup={handleSignup} />
         <Marquee />
         <Problems />
-        <SectionDivider label="EXHIBIT A" />
+        <SectionDivider label="DWG 003 — FIELD TEST" />
         <ScopeDemo />
-        <SectionDivider label="THE CLAUSES" />
+        <SectionDivider label="DWG 004 — SPECIFICATIONS" />
         <BentoFeatures />
-        <SectionDivider label="EXECUTION" />
+        <SectionDivider label="DWG 005 — ASSEMBLY" />
         <HowItWorks />
-        <SectionDivider label="EXHIBITS B–D" />
+        <SectionDivider label="DWG 006 — INSPECTION REPORTS" />
         <Testimonials />
         <FinalCTA waitlistCount={waitlistCount} onSignup={handleSignup} />
         <Footer />

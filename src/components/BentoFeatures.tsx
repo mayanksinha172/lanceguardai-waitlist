@@ -46,17 +46,17 @@ function Clause({ c, index }: { c: typeof clauses[0]; index: number }) {
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="relative p-7 border-ink-hair"
+      className="relative p-7 border-line-hair"
       style={{ borderWidth: '0 1px 1px 0', borderStyle: 'solid' }}
     >
       {c.stamped && (
         <div className="stamp text-[11px] absolute top-4 right-4">Automatic</div>
       )}
-      <p className="font-mono text-[11px] tracking-[0.2em] text-pen font-semibold mb-3">{c.ref}</p>
-      <h3 className="font-display font-bold text-xl text-ink mb-2.5" style={{ letterSpacing: '-0.02em' }}>
+      <p className="font-mono text-[11px] tracking-[0.2em] text-alert font-semibold mb-3">{c.ref}</p>
+      <h3 className="font-display font-bold text-xl text-line mb-2.5" style={{ letterSpacing: '-0.02em' }}>
         {c.title}
       </h3>
-      <p className="font-body text-sm leading-relaxed text-ink-soft">{c.description}</p>
+      <p className="font-body text-sm leading-relaxed text-line-soft">{c.description}</p>
     </motion.div>
   )
 }
@@ -75,11 +75,11 @@ export default function BentoFeatures() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14 max-w-2xl"
         >
-          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-pen font-semibold mb-4">
-            Terms of protection
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-alert font-semibold mb-4">
+            DWG 004 — System specifications
           </p>
           <h2
-            className="font-display font-bold text-ink"
+            className="font-display font-bold text-line"
             style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', lineHeight: 1.05, letterSpacing: '-0.025em' }}
           >
             Everything you need, <em className="font-black">in writing.</em>
@@ -87,7 +87,7 @@ export default function BentoFeatures() {
         </motion.div>
 
         <div
-          className="grid sm:grid-cols-2 lg:grid-cols-3 border-ink-hair"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 border-line-hair"
           style={{ borderWidth: '1px 0 0 1px', borderStyle: 'solid' }}
         >
           {clauses.map((c, i) => <Clause key={c.ref} c={c} index={i} />)}
