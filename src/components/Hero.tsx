@@ -1,7 +1,6 @@
 import { useState, useEffect, type RefObject } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-import HeroBackground from './HeroBackground'
 import WaitlistForm, { type WaitlistData } from './WaitlistForm'
 
 const cycleWords = ['money', 'time', 'clients', 'margins']
@@ -52,8 +51,11 @@ export default function Hero({ formRef, waitlistCount, onSignup }: HeroProps) {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-8 pb-32 overflow-hidden">
 
-      {/* Full cinematic background */}
-      <HeroBackground />
+      {/* Readability scrim over the 3D scene */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 62% 55% at 50% 48%, rgba(3,6,16,0.82) 0%, rgba(3,6,16,0.45) 55%, transparent 80%)' }}
+      />
 
       {/* Content — fades on scroll */}
       <motion.div

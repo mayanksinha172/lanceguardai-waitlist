@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+
+const Scene3D = lazy(() => import('./three/Scene3D'))
 import ScrollProgressBar from './components/ScrollProgressBar'
 import PageLoader from './components/PageLoader'
 import Navbar from './components/Navbar'
@@ -53,10 +55,13 @@ export default function App() {
     <>
 <PageLoader onDone={() => setLoaded(true)} />
 
+      <Suspense fallback={null}>
+        <Scene3D />
+      </Suspense>
+
       <div
-        className="min-h-screen font-body"
+        className="relative z-10 min-h-screen font-body"
         style={{
-          background: '#030610',
           opacity: loaded ? 1 : 0,
           transition: 'opacity 0.4s ease',
         }}

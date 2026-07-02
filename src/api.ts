@@ -25,7 +25,9 @@ export async function joinWaitlist(payload: SignupPayload): Promise<SignupResult
     body: JSON.stringify(payload),
   })
   if (!res.ok) throw new Error('Failed to join waitlist')
-  return res.json()
+  const data: SignupResult = await res.json()
+  if (data.already_registered) throw new Error('EMAIL_EXISTS')
+  return data
 }
 
 export async function getWaitlistCount(): Promise<number> {
