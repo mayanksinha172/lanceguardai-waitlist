@@ -1,97 +1,51 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { FileText, Link2, ShieldCheck } from 'lucide-react'
 
 const steps = [
   {
-    number: '01',
-    icon: FileText,
-    title: 'Create your proposal',
+    number: 'I.',
+    title: 'Draft',
     description:
-      'Enter project details — AI writes a professional, value-based proposal in under 60 seconds with scope protection built in.',
-    accent: '#FF6B35',
+      'Enter project details — AI writes a professional, value-based proposal in under 60 seconds, with scope protection built in.',
   },
   {
-    number: '02',
-    icon: Link2,
-    title: 'Send one link',
+    number: 'II.',
+    title: 'Sign',
     description:
-      'Share a single branded link. Your client views the proposal, signs, and pays the 50% deposit — all on one page. No back-and-forth.',
-    accent: '#4080FF',
+      'Share one branded link. Your client views, signs, and pays the 50% deposit — all on one page. No back-and-forth.',
   },
   {
-    number: '03',
-    icon: ShieldCheck,
-    title: 'AI defends your scope',
+    number: 'III.',
+    title: 'Defend',
     description:
-      'Every client message is scanned. Extras get flagged, priced, and sent as a change order automatically. You get paid for every hour.',
-    accent: '#11ff99',
+      'Every client message is scanned. Extras get flagged, priced, and sent as a change order automatically. Every hour gets paid.',
   },
 ]
 
-function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
+function StepRow({ step, index }: { step: typeof steps[0]; index: number }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 36 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: index * 0.14, ease: [0.16, 1, 0.3, 1] }}
-      className="relative flex flex-col items-center text-center gap-5"
+      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+      className="grid grid-cols-[64px_1fr] sm:grid-cols-[110px_200px_1fr] gap-4 sm:gap-8 items-baseline py-8 border-b border-ink-hair"
     >
-      {/* Watermark number */}
       <span
-        className="absolute font-display select-none pointer-events-none"
-        style={{
-          fontSize: '80px',
-          lineHeight: 1,
-          color: 'rgba(237,240,255,0.025)',
-          letterSpacing: '-0.04em',
-          top: -20,
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-        aria-hidden
+        className="font-display font-black text-pen"
+        style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', lineHeight: 1 }}
       >
         {step.number}
       </span>
-
-      <div className="relative">
-        <div
-          className="relative w-14 h-14 rounded-2xl flex items-center justify-center"
-          style={{
-            background: `${step.accent}10`,
-            border: `1px solid ${step.accent}25`,
-            boxShadow: `0 0 24px ${step.accent}15`,
-          }}
-        >
-          <step.icon className="w-6 h-6" style={{ color: step.accent }} />
-        </div>
-        {/* Connector line */}
-        {index < steps.length - 1 && (
-          <div
-            className="hidden lg:block absolute top-7 left-full ml-8 h-px pointer-events-none"
-            style={{
-              width: 'calc(100% + 2rem)',
-              background: `linear-gradient(90deg, ${step.accent}40, rgba(237,240,255,0.05))`,
-            }}
-          />
-        )}
-      </div>
-
-      <div>
-        <h3
-          className="font-display text-xl mb-3"
-          style={{ color: '#EDF0FF', lineHeight: 1.2, letterSpacing: '-0.02em' }}
-        >
-          {step.title}
-        </h3>
-        <p className="font-marketing text-sm leading-relaxed max-w-xs mx-auto" style={{ color: 'rgba(237,240,255,0.45)', fontWeight: 300 }}>
-          {step.description}
-        </p>
-      </div>
+      <h3 className="font-display font-bold text-2xl sm:text-3xl text-ink" style={{ letterSpacing: '-0.02em' }}>
+        {step.title}
+      </h3>
+      <p className="col-span-2 sm:col-span-1 font-body text-[15px] leading-relaxed text-ink-soft max-w-lg">
+        {step.description}
+      </p>
     </motion.div>
   )
 }
@@ -101,38 +55,31 @@ export default function HowItWorks() {
   const inView = useInView(titleRef, { once: true, margin: '-80px' })
 
   return (
-    <section className="relative py-24 lg:py-32 px-6 overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,107,53,0.09) 0%, transparent 70%)' }}
-      />
-
-      <div className="max-w-5xl mx-auto">
+    <section className="relative py-20 lg:py-28 px-6">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           ref={titleRef}
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10 max-w-2xl"
         >
-          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] mb-5" style={{ color: '#FF6B35' }}>
-            How it works
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-pen font-semibold mb-4">
+            Execution in three acts
           </p>
           <h2
-            className="font-display mb-5"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.05, letterSpacing: '-0.025em', color: '#EDF0FF' }}
+            className="font-display font-bold text-ink"
+            style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', lineHeight: 1.05, letterSpacing: '-0.025em' }}
           >
             From proposal to protected income.
           </h2>
-          <p className="font-marketing text-lg max-w-xl mx-auto" style={{ color: 'rgba(237,240,255,0.5)', fontWeight: 300 }}>
+          <p className="font-body text-lg text-ink-soft mt-4">
             What used to take 3 days of back-and-forth now takes 15 minutes.
           </p>
         </motion.div>
 
-        <div className="relative grid lg:grid-cols-3 gap-14 lg:gap-8">
-          {steps.map((step, i) => (
-            <StepCard key={step.number} step={step} index={i} />
-          ))}
+        <div className="border-t border-ink-hair">
+          {steps.map((step, i) => <StepRow key={step.number} step={step} index={i} />)}
         </div>
       </div>
     </section>

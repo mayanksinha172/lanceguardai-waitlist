@@ -1,6 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-
-const Scene3D = lazy(() => import('./three/Scene3D'))
+import { useEffect, useRef, useState } from 'react'
 import ScrollProgressBar from './components/ScrollProgressBar'
 import PageLoader from './components/PageLoader'
 import Navbar from './components/Navbar'
@@ -53,35 +51,25 @@ export default function App() {
 
   return (
     <>
-<PageLoader onDone={() => setLoaded(true)} />
-
-      <Suspense fallback={null}>
-        <Scene3D />
-      </Suspense>
+      <PageLoader onDone={() => setLoaded(true)} />
 
       <div
-        className="relative z-10 min-h-screen font-body"
-        style={{
-          opacity: loaded ? 1 : 0,
-          transition: 'opacity 0.4s ease',
-        }}
+        className="grain relative min-h-screen font-body"
+        style={{ opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease' }}
       >
         <ScrollProgressBar />
         <Navbar formRef={formRef} />
         <Hero formRef={formRef} waitlistCount={waitlistCount} onSignup={handleSignup} />
-        <SectionDivider />
         <Marquee />
-        <SectionDivider />
         <Problems />
-        <SectionDivider />
+        <SectionDivider label="EXHIBIT A" />
         <ScopeDemo />
-        <SectionDivider />
+        <SectionDivider label="THE CLAUSES" />
         <BentoFeatures />
-        <SectionDivider />
+        <SectionDivider label="EXECUTION" />
         <HowItWorks />
-        <SectionDivider />
+        <SectionDivider label="EXHIBITS B–D" />
         <Testimonials />
-        <SectionDivider />
         <FinalCTA waitlistCount={waitlistCount} onSignup={handleSignup} />
         <Footer />
       </div>

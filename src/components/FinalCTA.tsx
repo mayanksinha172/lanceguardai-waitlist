@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import WaitlistForm, { type WaitlistData } from './WaitlistForm'
 
 interface FinalCTAProps {
@@ -7,88 +8,57 @@ interface FinalCTAProps {
 }
 
 export default function FinalCTA({ waitlistCount, onSignup }: FinalCTAProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+
   return (
-    <section className="relative py-32 px-6 overflow-hidden">
-      {/* Strong centered aurora */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(64,128,255,0.18) 0%, rgba(17,255,153,0.07) 50%, transparent 75%)' }}
-      />
-
-      {/* Grid overlay */}
-      <div className="absolute inset-0 bg-grid opacity-100 pointer-events-none" />
-
-      {/* Corner brackets */}
-      {[
-        { top: 48, left: 48 },
-        { top: 48, right: 48, transform: 'scaleX(-1)' },
-        { bottom: 48, left: 48, transform: 'scaleY(-1)' },
-        { bottom: 48, right: 48, transform: 'scale(-1)' },
-      ].map((pos, i) => (
-        <div
-          key={i}
-          className="absolute pointer-events-none"
-          style={{
-            ...pos,
-            width: 28,
-            height: 28,
-            borderTop: '2px solid rgba(17,255,153,0.2)',
-            borderLeft: '2px solid rgba(17,255,153,0.2)',
-          }}
-          aria-hidden
-        />
-      ))}
-
-      <div className="relative z-10 max-w-xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+    <section className="relative py-24 lg:py-32 px-6">
+      <div ref={ref} className="max-w-2xl mx-auto text-center">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          className="font-mono text-[10px] tracking-[0.3em] uppercase text-ink-faint mb-6"
         >
-          <div
-            className="inline-flex items-center gap-2 badge-pill mb-10"
-            style={{ borderColor: 'rgba(64,128,255,0.2)' }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: '#4080FF', boxShadow: '0 0 6px rgba(64,128,255,0.8)' }}
-            />
-            <span className="font-mono text-[11px] tracking-wider" style={{ color: '#4080FF' }}>
-              {waitlistCount}+
-            </span>
-            <span className="font-ui text-[11px]" style={{ color: 'rgba(237,240,255,0.5)' }}>
-              freelancers already signed up
-            </span>
-          </div>
+          {waitlistCount}+ signatories and counting
+        </motion.p>
 
-          <h2
-            className="font-display mb-6"
-            style={{
-              fontSize: 'clamp(2.25rem, 6vw, 4rem)',
-              lineHeight: 1.0,
-              letterSpacing: '-0.03em',
-              color: '#EDF0FF',
-            }}
-          >
-            Ready to stop leaving money on the table?
-          </h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display font-black italic text-ink mb-4"
+          style={{ fontSize: 'clamp(3rem, 9vw, 6rem)', lineHeight: 0.95, letterSpacing: '-0.03em' }}
+        >
+          Sign here.
+        </motion.h2>
 
-          <p className="font-marketing text-lg mb-10" style={{ color: 'rgba(237,240,255,0.5)', fontWeight: 300 }}>
-            Join the waitlist. Be first when we launch.{' '}
-            <span
-              className="font-semibold"
-              style={{ color: '#11ff99', textShadow: '0 0 20px rgba(17,255,153,0.4)' }}
-            >
-              3 months free
-            </span>{' '}
-            for early members.
-          </p>
+        {/* signature flourish draws itself */}
+        <svg className="mx-auto mb-8" width="220" height="24" viewBox="0 0 220 24" aria-hidden>
+          <motion.path
+            d="M 4 16 C 40 4, 60 22, 95 12 C 125 4, 140 20, 170 12 C 190 7, 205 14, 216 10"
+            fill="none"
+            stroke="#D92B1C"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            initial={{ pathLength: 0 }}
+            animate={inView ? { pathLength: 1 } : {}}
+            transition={{ duration: 0.9, delay: 0.4, ease: 'easeInOut' }}
+          />
+        </svg>
 
-          <div className="max-w-sm mx-auto">
-            <WaitlistForm source="cta" onSignup={onSignup} />
-          </div>
-        </motion.div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.3 }}
+          className="font-body text-lg text-ink-soft mb-10"
+        >
+          Be first when we launch. Early signatories get{' '}
+          <span className="hl font-semibold text-ink">3 months free</span>.
+        </motion.p>
+
+        <div className="max-w-md mx-auto text-left">
+          <WaitlistForm source="cta" onSignup={onSignup} />
+        </div>
       </div>
     </section>
   )

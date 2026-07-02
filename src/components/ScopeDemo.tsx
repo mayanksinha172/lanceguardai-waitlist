@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-import { AlertTriangle, CheckCircle, FileText, DollarSign } from 'lucide-react'
 
 type DemoStep = 'idle' | 'scanning' | 'flagged' | 'order'
 
@@ -12,6 +11,11 @@ const originalScope = [
   'About page',
   'Contact form with email',
   'Mobile responsive layout',
+]
+
+const flaggedItems = [
+  { item: 'Blog section + search + categories', price: '+$1,200' },
+  { item: '3 additional team pages', price: '+$600' },
 ]
 
 export default function ScopeDemo() {
@@ -54,215 +58,182 @@ export default function ScopeDemo() {
   }, [inView])
 
   return (
-    <section ref={sectionRef} className="relative py-24 lg:py-32 px-6 overflow-hidden">
-      {/* Centered green glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(17,255,153,0.08) 0%, transparent 70%)' }}
-      />
-
+    <section ref={sectionRef} className="relative py-20 lg:py-28 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={titleRef}
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-14 max-w-2xl"
         >
-          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] mb-5" style={{ color: '#11ff99' }}>
-            Live demo
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-pen font-semibold mb-4">
+            Exhibit A — live demonstration
           </p>
           <h2
-            className="font-display mb-5"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.05, letterSpacing: '-0.025em', color: '#EDF0FF' }}
+            className="font-display font-bold text-ink"
+            style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', lineHeight: 1.05, letterSpacing: '-0.025em' }}
           >
-            Watch AI catch scope creep.
+            Watch the AI <span className="hl">catch it red-handed.</span>
           </h2>
-          <p className="font-marketing text-lg max-w-xl mx-auto" style={{ color: 'rgba(237,240,255,0.5)', fontWeight: 300 }}>
-            This is exactly what LanceGuardAI does the moment a client message arrives.
+          <p className="font-body text-lg text-ink-soft mt-4">
+            This is exactly what happens the moment a client message arrives.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-5 items-start">
-          {/* Left: client context */}
-          <div className="space-y-3">
-            <div className="surface-card p-5">
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{ background: 'rgba(64,128,255,0.12)', border: '1px solid rgba(64,128,255,0.2)' }}
-                >
-                  <span className="font-mono text-xs font-semibold" style={{ color: '#4080FF' }}>S</span>
-                </div>
-                <div>
-                  <p className="font-marketing text-sm font-medium" style={{ color: '#EDF0FF' }}>Sarah Chen</p>
-                  <p className="font-ui text-xs" style={{ color: 'rgba(237,240,255,0.35)' }}>just now</p>
-                </div>
-              </div>
-              <p className="font-marketing text-sm leading-relaxed" style={{ color: 'rgba(237,240,255,0.6)' }}>
-                {clientMessage}
-              </p>
-            </div>
-
-            <div className="surface-card p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <FileText className="w-3.5 h-3.5" style={{ color: 'rgba(237,240,255,0.3)' }} />
-                <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: 'rgba(237,240,255,0.35)' }}>
-                  Original Scope
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          {/* Left: the client's letter */}
+          <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, rotate: 0 }}
+              whileInView={{ opacity: 1, rotate: -0.8 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6 }}
+              className="sheet p-6"
+            >
+              <div className="flex items-baseline justify-between mb-4 pb-3 border-b border-ink-hair">
+                <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-faint">
+                  From: Sarah Chen
                 </p>
+                <p className="font-mono text-[10px] text-ink-faint">just now</p>
               </div>
+              <p className="font-body italic text-[15px] leading-relaxed text-ink">
+                “{clientMessage}”
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, rotate: 0 }}
+              whileInView={{ opacity: 1, rotate: 0.6 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="sheet p-6"
+            >
+              <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-faint mb-4">
+                Signed scope · SOW № 004
+              </p>
               <ul className="space-y-2">
                 {originalScope.map(item => (
-                  <li key={item} className="flex items-center gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#11ff99' }} />
-                    <span className="font-marketing text-sm" style={{ color: 'rgba(237,240,255,0.55)' }}>{item}</span>
+                  <li key={item} className="flex items-baseline gap-3">
+                    <span className="font-mono text-xs font-semibold text-money">✓</span>
+                    <span className="font-body text-sm text-ink-soft">{item}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Right: detection panel */}
-          <motion.div
-            animate={
-              step === 'flagged' || step === 'order'
-                ? { boxShadow: '0 0 60px rgba(17,255,153,0.1), 0 0 1px rgba(17,255,153,0.35)', borderColor: 'rgba(17,255,153,0.2)' }
-                : { boxShadow: '0 0 0px transparent', borderColor: 'rgba(237,240,255,0.07)' }
-            }
-            transition={{ duration: 0.5 }}
-            className="surface-card p-5 min-h-[320px] flex flex-col scan-container"
-          >
-            <div className="flex items-center gap-2 mb-5 pb-4" style={{ borderBottom: '1px solid rgba(237,240,255,0.06)' }}>
-              <div
-                className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                  step === 'idle' ? '' : step === 'scanning' ? 'animate-pulse' : ''
-                }`}
-                style={{
-                  background: step === 'idle' ? 'rgba(237,240,255,0.2)' : step === 'scanning' ? '#FFD60A' : '#11ff99',
-                  boxShadow: step === 'scanning' ? '0 0 8px rgba(255,214,10,0.8)' : step !== 'idle' ? '0 0 8px rgba(17,255,153,0.8)' : 'none',
-                }}
-              />
-              <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: 'rgba(237,240,255,0.35)' }}>
-                LanceGuardAI
+          {/* Right: the audit sheet */}
+          <div className="sheet margin-line p-6 pl-12 min-h-[380px] flex flex-col">
+            <div className="flex items-center justify-between mb-5 pb-3 border-b border-ink-hair">
+              <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-ink-soft font-semibold">
+                LanceGuardAI · Audit
               </p>
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {step === 'scanning' && (
-                  <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    className="ml-auto font-mono text-[10px]" style={{ color: '#FFD60A' }}>
-                    Analyzing…
+                  <motion.span
+                    key="scanning"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="font-mono text-[10px] text-ink-soft"
+                  >
+                    reviewing against contract…
+                  </motion.span>
+                )}
+                {(step === 'flagged' || step === 'order') && (
+                  <motion.span
+                    key="done"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                    className="font-mono text-[10px] font-semibold text-pen"
+                  >
+                    2 VIOLATIONS FOUND
                   </motion.span>
                 )}
               </AnimatePresence>
             </div>
 
+            {/* scanning: red pen progress line */}
             <AnimatePresence>
               {step === 'scanning' && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mb-5">
-                  <div
-                    className="relative h-[2px] rounded-full overflow-hidden mb-2"
-                    style={{ background: 'rgba(237,240,255,0.05)' }}
-                  >
+                  <div className="relative h-[3px] mb-2" style={{ background: 'rgba(25,20,7,0.08)' }}>
                     <div
-                      className="absolute left-0 top-0 h-full rounded-full"
-                      style={{
-                        width: `${scanProgress}%`,
-                        background: 'linear-gradient(90deg, #4080FF, #11ff99)',
-                        boxShadow: '0 0 8px rgba(17,255,153,0.5)',
-                        transition: 'width 0.05s linear',
-                      }}
+                      className="absolute left-0 top-0 h-full"
+                      style={{ width: `${scanProgress}%`, background: '#D92B1C', transition: 'width 0.05s linear' }}
                     />
                   </div>
-                  <p className="font-mono text-[10px]" style={{ color: 'rgba(237,240,255,0.3)' }}>
-                    Comparing message against signed contract scope…
+                  <p className="font-mono text-[10px] text-ink-faint">
+                    comparing request · clause by clause
                   </p>
                 </motion.div>
               )}
             </AnimatePresence>
 
+            {/* flagged items — struck through with price in the margin */}
             <AnimatePresence>
               {(step === 'flagged' || step === 'order') && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-2.5 mb-4"
+                  transition={{ duration: 0.4 }}
+                  className="space-y-4 mb-6"
                 >
-                  <div
-                    className="flex items-center gap-2 p-3 rounded-xl"
-                    style={{ background: 'rgba(255,45,85,0.06)', border: '1px solid rgba(255,45,85,0.18)' }}
-                  >
-                    <AlertTriangle className="w-4 h-4 flex-shrink-0" style={{ color: '#FF2D55' }} />
-                    <span className="font-mono text-xs font-semibold" style={{ color: '#FF2D55' }}>
-                      2 OUT-OF-SCOPE requests detected
-                    </span>
-                    <span className="ml-auto font-mono text-xs" style={{ color: 'rgba(255,45,85,0.5)' }}>97%</span>
-                  </div>
-
-                  {[
-                    { item: 'Blog section + search + categories', price: '+$1,200' },
-                    { item: '3 additional team pages', price: '+$600' },
-                  ].map(({ item, price }, i) => (
+                  {flaggedItems.map(({ item, price }, i) => (
                     <motion.div
                       key={item}
-                      initial={{ opacity: 0, x: -10 }}
+                      initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.08 }}
-                      className="flex items-center justify-between p-3 rounded-xl"
-                      style={{ background: 'rgba(237,240,255,0.02)', border: '1px solid rgba(237,240,255,0.06)' }}
+                      transition={{ delay: 0.12 + i * 0.12 }}
+                      className="flex items-baseline justify-between gap-4"
                     >
-                      <span className="font-marketing text-sm" style={{ color: 'rgba(237,240,255,0.5)' }}>{item}</span>
-                      <span className="font-mono text-sm font-semibold" style={{ color: '#11ff99' }}>{price}</span>
+                      <div className="relative inline-block">
+                        <span className="font-body text-sm text-ink">{item}</span>
+                        <motion.div
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ duration: 0.4, delay: 0.3 + i * 0.15, ease: [0.7, 0, 0.3, 1] }}
+                          className="absolute left-0 right-0 top-1/2 h-[2px] origin-left"
+                          style={{ background: '#D92B1C' }}
+                        />
+                      </div>
+                      <span className="font-mono text-sm font-semibold text-money whitespace-nowrap">{price}</span>
                     </motion.div>
                   ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <AnimatePresence>
-              {step === 'order' && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="mt-auto p-4 rounded-xl"
-                  style={{ background: 'rgba(255,214,10,0.05)', border: '1px solid rgba(255,214,10,0.2)' }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <DollarSign className="w-4 h-4" style={{ color: '#FFD60A' }} />
-                    <span className="font-mono text-xs font-semibold" style={{ color: '#FFD60A' }}>
-                      Change Order Generated
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-marketing text-sm" style={{ color: 'rgba(237,240,255,0.4)' }}>
-                      2 items · ready to send
-                    </span>
-                    <span
-                      className="font-mono text-xl font-semibold"
-                      style={{ color: '#FFD60A', textShadow: '0 0 20px rgba(255,214,10,0.5)' }}
-                    >
-                      $1,800
-                    </span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <AnimatePresence>
-              {step === 'idle' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex-1 flex items-center justify-center"
-                >
-                  <p className="font-mono text-xs tracking-wider" style={{ color: 'rgba(237,240,255,0.2)' }}>
-                    Waiting for client message…
+                  <p className="font-mono text-[10px] tracking-[0.15em] font-semibold text-pen">
+                    ✗ NOT IN SIGNED SCOPE — §2.1, §2.4
                   </p>
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
+
+            {/* change order stamp + total */}
+            <div className="mt-auto">
+              <AnimatePresence>
+                {step === 'order' && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-end justify-between pt-4 border-t border-ink-hair"
+                  >
+                    <div className="stamp animate-stamp-in text-base">Change order</div>
+                    <div className="text-right">
+                      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-ink-faint mb-1">
+                        2 items · ready to send
+                      </p>
+                      <p className="font-display font-black text-3xl text-ink tabular-nums">$1,800</p>
+                    </div>
+                  </motion.div>
+                )}
+                {step === 'idle' && (
+                  <motion.p
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="font-mono text-[11px] text-ink-faint text-center pb-8"
+                  >
+                    awaiting client correspondence…
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </div>
     </section>
